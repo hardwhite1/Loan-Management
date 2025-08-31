@@ -1,0 +1,40 @@
+@* @model UsersViewModel;
+
+@{
+    ViewData["Title"] = "Users Management";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Adminstrators</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    @foreach(var user in Model.Adminstrators)
+    {
+        <td>
+            <tr>@user.Id</tr>
+            <tr>@user.Email</tr>
+        </td>
+    }  
+</table>
+
+<h3>Everyone</h3>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    @foreach(var everyone in Model.Everyone)
+    {
+        <td>@everyone.Id</td>
+        <td>@everyone.Email</td>
+    }
+</table> *@

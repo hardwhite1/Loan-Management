@@ -17,7 +17,7 @@ namespace Loan_Management.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Users()
         {
             var admins = (await _userManager.GetUsersInRoleAsync("Adminstrator")).ToArray();
 
