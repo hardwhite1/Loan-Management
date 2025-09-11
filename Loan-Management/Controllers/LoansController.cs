@@ -6,7 +6,7 @@ using Loan_Management.Models;
 
 namespace Loan_Management.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Adminstrator")]
     public class LoansController : Controller
     {
 
@@ -15,6 +15,11 @@ namespace Loan_Management.Controllers
         public LoansController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
+        }
+
+        public IActionResult LoanProductsRegister()
+        {
+            return View();
         }
         public async Task<IActionResult> Loans()
         {
