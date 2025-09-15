@@ -3,6 +3,6 @@ namespace Loan_Management.Models
 {
     public class LoanProductsViewModel
     {
-        public LoanProducts[]? loanProducts{ get; set; }
+        public LoanProductsRegister[]? loanProducts{ get; set; }
     }
 }

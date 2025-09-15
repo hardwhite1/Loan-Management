@@ -4,6 +4,8 @@ using Loan_Management.Data;
 using Loan_Management;
 using Loan_Management.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Loan_Management.Services;
+using Loan_Management.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ILoanProductsRegister, LoanProductsRegisterService>();
 
 void InitializeDatabase(IHost host)
 {
