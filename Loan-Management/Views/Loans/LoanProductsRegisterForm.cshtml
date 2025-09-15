@@ -1,0 +1,14 @@
+<!-- LoanRegistration.cshtml -->
+@model LoanProductsRegister
+
+@{
+    ViewData["Title"] = "Loan Registration";
+}
+
+<h2>Loan Registration</h2>
+
+<partial name="_LoansRegisterFormPartial" model="Model" />
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
