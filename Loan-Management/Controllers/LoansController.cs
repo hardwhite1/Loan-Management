@@ -20,6 +20,11 @@ namespace Loan_Management.Controllers
             _loanRegister = loanRegister;
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
         
         [HttpGet]
         public IActionResult LoanProductsRegisterForm()
@@ -48,7 +53,7 @@ namespace Loan_Management.Controllers
             {
                 return BadRequest("Could not add item");
             }
-            return RedirectToPage("/Loans");
+            return RedirectToAction("Loans");
 
         }
         [HttpGet]
