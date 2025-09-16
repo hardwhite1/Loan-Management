@@ -10,7 +10,7 @@
             <h3 class="mb-0">Loan Product Registration</h3>
         </div>
         <div class="card-body">
-            <form asp-action="Create" method="post">
+            <form asp-action="LoanProductsRegister" method="post">
                 <div class="row g-3">
 
                     <div class="col-md-6">
@@ -26,25 +26,25 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="PrincipalAmountMin" class="form-label"></label>
+                        <label asp-for="PrincipalAmountMin" class="form-label">Principal Amount(Min)</label>
                         <input asp-for="PrincipalAmountMin" class="form-control" type="number" step="0.01" />
                         <span asp-validation-for="PrincipalAmountMin" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="PrincipalAmountMax" class="form-label"></label>
+                        <label asp-for="PrincipalAmountMax" class="form-label">Principal Amount(Max)</label>
                         <input asp-for="PrincipalAmountMax" class="form-control" type="number" step="0.01" />
                         <span asp-validation-for="PrincipalAmountMax" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="InterestRate" class="form-label"></label>
+                        <label asp-for="InterestRate" class="form-label">Interest Rate</label>
                         <input asp-for="InterestRate" class="form-control" type="number" step="0.01" />
                         <span asp-validation-for="InterestRate" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="InterestRateType" class="form-label"></label>
+                        <label asp-for="InterestRateType" class="form-label">Interest Rate Type</label>
                         <select asp-for="InterestRateType" class="form-select">
                             <option value="">-- Select Type --</option>
                             <option value="Fixed">Fixed</option>
@@ -54,19 +54,19 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="ProcessingFee" class="form-label"></label>
+                        <label asp-for="ProcessingFee" class="form-label">Processing Fee</label>
                         <input asp-for="ProcessingFee" class="form-control" type="number" step="0.01" />
                         <span asp-validation-for="ProcessingFee" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="LatePaymentPenalty" class="form-label"></label>
+                        <label asp-for="LatePaymentPenalty" class="form-label">Late Payment Penalty</label>
                         <input asp-for="LatePaymentPenalty" class="form-control" type="number" step="0.01" />
                         <span asp-validation-for="LatePaymentPenalty" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="RepaymentFrequency" class="form-label"></label>
+                        <label asp-for="RepaymentFrequency" class="form-label">Repayment Frequency</label>
                         <select asp-for="RepaymentFrequency" class="form-select">
                             <option value="">-- Select Frequency --</option>
                             <option value="Weekly">Weekly</option>
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="InstallmentType" class="form-label"></label>
+                        <label asp-for="InstallmentType" class="form-label">Installment Type</label>
                         <select asp-for="InstallmentType" class="form-select">
                             <option value="">-- Select Type --</option>
                             <option value="Equal">Equal Installments</option>
@@ -96,19 +96,19 @@
                     <div class="col-md-6">
                         <div class="form-check mt-4">
                             <input asp-for="RequiresCollateral" class="form-check-input" type="checkbox" />
-                            <label asp-for="RequiresCollateral" class="form-check-label"></label>
+                            <label asp-for="RequiresCollateral" class="form-check-label">Requires Collateral</label>
                         </div>
                         <span asp-validation-for="RequiresCollateral" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="CollateralType" class="form-label"></label>
+                        <label asp-for="CollateralType" class="form-label">Collateral Type</label>
                         <input asp-for="CollateralType" class="form-control" />
                         <span asp-validation-for="CollateralType" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="EligibilityCriteria" class="form-label"></label>
+                        <label asp-for="EligibilityCriteria" class="form-label">Eligibility Criteria</label>
                         <textarea asp-for="EligibilityCriteria" class="form-control"></textarea>
                         <span asp-validation-for="EligibilityCriteria" class="text-danger"></span>
                     </div>
@@ -122,7 +122,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="MaxConcurrentLoans" class="form-label"></label>
+                        <label asp-for="MaxConcurrentLoans" class="form-label">Max Concurrent Loans</label>
                         <input asp-for="MaxConcurrentLoans" class="form-control" type="number" />
                         <span asp-validation-for="MaxConcurrentLoans" class="text-danger"></span>
                     </div>
@@ -130,13 +130,13 @@
                     <div class="col-md-6">
                         <div class="form-check mt-4">
                             <input asp-for="PrepayMentAllowed" class="form-check-input" type="checkbox" />
-                            <label asp-for="PrepayMentAllowed" class="form-check-label"></label>
+                            <label asp-for="PrepayMentAllowed" class="form-check-label">Prepayment Allowed</label>
                         </div>
                         <span asp-validation-for="PrepayMentAllowed" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="PrepayMentPenalty" class="form-label"></label>
+                        <label asp-for="PrepayMentPenalty" class="form-label">Prepayment Penalty</label>
                         <input asp-for="PrepayMentPenalty" class="form-control" type="number" step="0.01" />
                         <span asp-validation-for="PrepayMentPenalty" class="text-danger"></span>
                     </div>
@@ -148,19 +148,19 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="CreatedDate" class="form-label"></label>
+                        <label asp-for="CreatedDate" class="form-label">Date Created</label>
                         <input asp-for="CreatedDate" class="form-control" type="date" />
                         <span asp-validation-for="CreatedDate" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="CreatedBy" class="form-label"></label>
+                        <label asp-for="CreatedBy" class="form-label">Created By</label>
                         <input asp-for="CreatedBy" class="form-control" />
                         <span asp-validation-for="CreatedBy" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="LastUpdated" class="form-label"></label>
+                        <label asp-for="LastUpdated" class="form-label">Last Updated</label>
                         <input asp-for="LastUpdated" class="form-control" type="date" />
                         <span asp-validation-for="LastUpdated" class="text-danger"></span>
                     </div>
