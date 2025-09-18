@@ -47,8 +47,10 @@ namespace Loan_Management.Controllers
                     }
                 }
             }
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Unauthorized();
             //perform a call to the service layer
-            var successful = await _loanRegister.CreateLoanProductsAsync(loanProductsRegister);
+            var successful = await _loanRegister.CreateLoanProductsAsync(loanProductsRegister, currentUser);
             if (!successful)
             {
                 return BadRequest("Could not add item");
@@ -61,7 +63,12 @@ namespace Loan_Management.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Unauthorized();
-            return View();
+            var loanItems = await _loanRegister.GetAllRegisteredLoanProductsAsync(currentUser);
+            var model = new LoanProductsViewModel
+            {
+                loanProducts = loanItems //loanProducts is a property defined in LoanProductsViewModel which(the property) is an array of LoanProductsRegister and will be passed to the view
+            };
+            return View(model);
         }
 
         [HttpGet]
