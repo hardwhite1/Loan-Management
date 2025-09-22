@@ -70,6 +70,18 @@ namespace Loan_Management.Controllers
             };
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> LoanDetails(Guid id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Unauthorized();
+            var loanItems = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(currentUser, id);
+            var model = new LoanProductsViewModel
+            {
+                loanProducts = loanItems //loanProducts is a property defined in LoanProductsViewModel which(the property) is an array of LoanProductsRegister and will be passed to the view
+            };
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult Users()

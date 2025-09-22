@@ -21,7 +21,7 @@ namespace Loan_Management.Services
         {
             if (loanProductsRegister == null) return false;
 
-            // Check for existing loan products via loan code
+            // Check for existing loan products via loan Code
             var existingProduct = await _context.LoanProducts
                 .FirstOrDefaultAsync(lp => lp.Code == loanProductsRegister.Code);
             if (existingProduct != null) return false; // Duplicate code found
@@ -37,7 +37,17 @@ namespace Loan_Management.Services
 
         public async Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsAsync(ApplicationUser user)
         {
-            return await _context.LoanProducts.Where(x => x.UserId == user.Id).ToArrayAsync();
+            // return await _context.LoanProducts.Where(x => x.UserId == user.Id).ToArrayAsync();
+            var items = await _context.LoanProducts.Where(x => x.UserId == user.Id).ToArrayAsync();
+            return items;
+        }
+
+        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsByLoanIdAsync(ApplicationUser user, Guid loanId)
+        {
+            var items = _context.LoanProducts
+                .Where(x => x.UserId == user.Id && x.Id == loanId)
+                .ToArrayAsync();
+            return items;
         }
     }
 }
