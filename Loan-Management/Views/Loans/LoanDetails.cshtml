@@ -1,0 +1,83 @@
+@model LoanProductsViewModel
+
+@foreach (var loan in @Model.loanProducts)
+{
+    <h3>@loan.Name - Loan Details</h3>
+    <div class="loan-details-card">
+        <h4>@loan.Name (@loan.Code)</h4>
+        <p><strong>Principal:</strong> Ksh @loan.PrincipalAmountMin - Ksh @loan.PrincipalAmountMax</p>
+        <p><strong>Interest Rate:</strong> @loan.InterestRate% (@loan.InterestRateType)</p>
+        <p><strong>Processing Fee:</strong> Ksh @loan.ProcessingFee</p>
+        <p><strong>Late Payment Penalty:</strong> Ksh @loan.LatePaymentPenalty</p>`
+        
+        <h5>Repayment Terms</h5>
+        <p><strong>Frequency:</strong> @loan.RepaymentFrequency</p>
+        <p><strong>Grace Period:</strong> @loan.GracePeriodMonths months</p>
+        <p><strong>Installment Type:</strong> @loan.InstallmentType</p>
+        
+        <h5>Collateral & Eligibility</h5>
+        <p><strong>Requires Collateral:</strong> @(loan.RequiresCollateral ? "Yes" : "No")</p>
+        @if (@loan.RequiresCollateral)
+        {
+            <p><strong>Collateral Type:</strong> @loan.CollateralType</p>
+        }
+        <p><strong>Eligibility:</strong> @loan.EligibilityCriteria</p>
+        
+        <h5>Other Information</h5>
+        <p><strong>Status:</strong> @(@loan.Active ? "Active" : "Inactive")</p>
+        <p><strong>Max Concurrent Loans:</strong> @loan.MaxConcurrentLoans</p>
+        <p><strong>Prepayment Allowed:</strong> @(@loan.PrepayMentAllowed ? "Yes" : "No")</p>
+        @if (@loan.PrepayMentPenalty.HasValue)
+        {
+            <p><strong>Prepayment Penalty:</strong> Ksh @loan.PrepayMentPenalty</p>
+        }
+        <p><strong>Currency:</strong> @loan.Currency</p>
+        
+        <h5>Audit Info</h5>
+        <p><strong>Created:</strong> @loan.CreatedDate by @loan.CreatedBy</p>
+        <p><strong>Last Updated:</strong> @loan.LastUpdated</p>
+
+        <button class="btn-apply">Apply</button>
+    </div>
+
+}
+
+
+
+<style>
+    .loan-details-card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        max-width: 700px;
+    }
+    .loan-details-card h4 {
+        margin-bottom: 15px;
+        font-size: 22px;
+        color: #2c3e50;
+    }
+    .loan-details-card h5 {
+        margin-top: 20px;
+        color: #007bff;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+    .loan-details-card p {
+        margin: 5px 0;
+    }
+    .btn-apply {
+        margin-top: 20px;
+        background: #007bff;
+        color: #fff;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .btn-apply:hover {
+        background: #0056b3;
+    }
+</style>
