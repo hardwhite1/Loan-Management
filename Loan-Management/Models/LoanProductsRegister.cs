@@ -55,5 +55,7 @@ namespace Loan_Management.Models
         public string? CreatedBy { get; set; }
         [Required]
         public DateTime LastUpdated { get; set; }
+        //Navigation Property
+        public ICollection<LoanApplicationModel> ApplicationsModel { get; set; } = [];
     }
 }

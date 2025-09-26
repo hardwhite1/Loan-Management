@@ -30,7 +30,6 @@
             <p><strong>Eligibility:</strong> @loan.EligibilityCriteria</p>
             
             <h5>Other Information</h5>
-            <p><strong>Status:</strong> @(loan.Active ? "Active" : "Inactive")</p>
             <p><strong>Max Concurrent Loans:</strong> @loan.MaxConcurrentLoans</p>
             <p><strong>Prepayment Allowed:</strong> @(loan.PrepayMentAllowed ? "Yes" : "No")</p>
             @if (loan.PrepayMentPenalty.HasValue)
@@ -38,11 +37,6 @@
                 <p><strong>Prepayment Penalty:</strong> Ksh @loan.PrepayMentPenalty</p>
             }
             <p><strong>Currency:</strong> @loan.Currency</p>
-            
-            <h5>Audit Info</h5>
-            <p><strong>Created:</strong> @loan.CreatedDate by @loan.CreatedBy</p>
-            <p><strong>Last Updated:</strong> @loan.LastUpdated</p>
-
             <button class="btn-apply">Apply</button>
         </div>
     </div>

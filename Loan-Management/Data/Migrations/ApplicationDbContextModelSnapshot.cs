@@ -80,6 +80,45 @@ namespace Loan_Management.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Loan_Management.Models.LoanApplicationModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("ApplicationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("LoanProductId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProcessedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RepaymentPeriodMonths")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("RequestedAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoanProductId");
+
+                    b.ToTable("ApplicationModel");
+                });
+
             modelBuilder.Entity("Loan_Management.Models.LoanProductsRegister", b =>
                 {
                     b.Property<Guid>("Id")
@@ -90,6 +129,7 @@ namespace Loan_Management.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CollateralType")
@@ -98,7 +138,7 @@ namespace Loan_Management.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Currency")
@@ -111,12 +151,14 @@ namespace Loan_Management.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("InstallmentType")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("InterestRate")
                         .HasColumnType("REAL");
 
                     b.Property<string>("InterestRateType")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastUpdated")
@@ -129,6 +171,7 @@ namespace Loan_Management.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("PrepayMentAllowed")
@@ -147,10 +190,15 @@ namespace Loan_Management.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RepaymentFrequency")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("RequiresCollateral")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -285,6 +333,17 @@ namespace Loan_Management.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Loan_Management.Models.LoanApplicationModel", b =>
+                {
+                    b.HasOne("Loan_Management.Models.LoanProductsRegister", "LoanProduct")
+                        .WithMany("ApplicationsModel")
+                        .HasForeignKey("LoanProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LoanProduct");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -334,6 +393,11 @@ namespace Loan_Management.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Loan_Management.Models.LoanProductsRegister", b =>
+                {
+                    b.Navigation("ApplicationsModel");
                 });
 #pragma warning restore 612, 618
         }
