@@ -1,0 +1,63 @@
+@model LoanApplicationModel
+
+@{
+    ViewData["Title"] = "Loan Application Form";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded">
+        <h3 class="mb-4 text-primary text-center">Loan Application Form</h3>
+
+        <form asp-action="LoanApplicationForm" method="post">
+            <input type="hidden" asp-for="LoanProductId" />
+
+            <div class="mb-3">
+                <label asp-for="RequestedAmount" class="form-label"></label>
+                <input asp-for="RequestedAmount" class="form-control" />
+                <span asp-validation-for="RequestedAmount" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="RepaymentPeriodMonths" class="form-label"></label>
+                <input asp-for="RepaymentPeriodMonths" class="form-control" />
+                <span asp-validation-for="RepaymentPeriodMonths" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Purpose" class="form-label"></label>
+                <textarea asp-for="Purpose" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Purpose" class="text-danger"></span>
+            </div>
+
+            @if (Model.RequiresCollateral)
+            {
+                <div class="mb-3">
+                    <label asp-for="CollateralDetails" class="form-label"></label>
+                    <textarea asp-for="CollateralDetails" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="CollateralDetails" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ApplicationDate" class="form-label"></label>
+                <input type="date" asp-for="ApplicationDate" class="form-control" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProcessedBy" class="form-label"></label>
+                <input asp-for="ProcessedBy" class="form-control" readonly />
+            </div>
+
+            <button type="submit" class="btn btn-success w-100"
+                    onclick="return confirm('Are you sure you want to apply for this loan?')">
+                Submit Application
+            </button>
+        </form>
+    </div>
+</div>

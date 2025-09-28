@@ -71,7 +71,6 @@ namespace Loan_Management.Controllers
             return View(model);
         }
         [HttpGet]
-        [HttpGet]
         public async Task<IActionResult> LoanDetails(Guid id)
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -87,6 +86,30 @@ namespace Loan_Management.Controllers
             return View(model); // only one record should match
         }
 
+        [HttpGet]
+        public async Task<IActionResult> LoanApplicationForm(Guid id) // loan product id
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Unauthorized();
+
+            // Get the loan product
+            var loanProduct = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(currentUser, id);
+            if (loanProduct == null || !loanProduct.Any()) return NotFound();
+
+            var product = loanProduct.First();
+
+            // Build the application model
+            var model = new LoanApplicationModel
+            {
+                LoanProductId = product.Id,
+                LoanProduct = product,
+                RequiresCollateral = product.RequiresCollateral,
+                ApplicationDate = DateTimeOffset.Now,
+                ProcessedBy = "System" //Remember to remove hardcoded value
+            };
+
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult Users()

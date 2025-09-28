@@ -37,7 +37,11 @@
                 <p><strong>Prepayment Penalty:</strong> Ksh @loan.PrepayMentPenalty</p>
             }
             <p><strong>Currency:</strong> @loan.Currency</p>
-            <button class="btn-apply">Apply</button>
+            @* <form asp-action="LoanApplicationForm" method="get">
+                <button class="btn-apply">Apply</button>
+            </form> *@
+            <a class="btn-apply" href="@Url.Action("LoanApplicationForm", "Loans", new { id = loan.Id })"
+            onclick="return confirm('Apply for this loan?');">Apply</a>
         </div>
     </div>
 }
