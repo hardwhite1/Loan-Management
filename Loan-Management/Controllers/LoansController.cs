@@ -101,7 +101,7 @@ namespace Loan_Management.Controllers
             // Build the application model
             var model = new LoanApplicationModel
             {
-                LoanProductId = product.Id,
+                LoanProductId = product.Id, 
                 LoanProduct = product,
                 RequiresCollateral = product.RequiresCollateral,
                 ApplicationDate = DateTimeOffset.Now,
@@ -110,13 +110,6 @@ namespace Loan_Management.Controllers
 
             return View(model);
         }
-
-        [HttpGet]
-        public IActionResult Users()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult Finances()
         {
