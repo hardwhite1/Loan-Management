@@ -23,11 +23,6 @@ namespace Loan_Management.Models
         public double InterestRate { get; set; }
         [Required]
         public string? InterestRateType { get; set; } //Fixed, Variable
-        [Required]
-        public decimal ProcessingFee { get; set; }
-        [Required]
-        public decimal LatePaymentPenalty { get; set; }
-
         //Repayment
         [Required]
         public string? RepaymentFrequency { get; set; }

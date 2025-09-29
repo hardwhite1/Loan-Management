@@ -16,6 +16,11 @@ namespace Loan_Management.Models
         [Range(1000, double.MaxValue, ErrorMessage = "Amount must be at least 1000")]
         public decimal RequestedAmount { get; set; }
         public bool RequiresCollateral { get; set; }
+         [Required]
+        public decimal ProcessingFee { get; set; }
+
+         [Required]
+        public decimal LatePaymentPenalty { get; set; }
         public string? CollateralDetails { get; set; }
         
         [Required]

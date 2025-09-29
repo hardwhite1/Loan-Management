@@ -18,6 +18,18 @@
             </div>
 
             <div class="mb-3">
+                <label asp-for="ProcessingFee" class="form-label">Processing Fee</label>
+                <input asp-for="ProcessingFee" class="form-control" />
+                <span asp-validation-for="ProcessingFee" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LatePaymentPenalty" class="form-label">Late Payment Penalty</label>
+                <input asp-for="LatePaymentPenalty" class="form-control" />
+                <span asp-validation-for="LatePaymentPenalty" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
                 <label asp-for="RepaymentPeriodMonths" class="form-label">Repayment Period(Months)</label>
                 <input asp-for="RepaymentPeriodMonths" class="form-control" />
                 <span asp-validation-for="RepaymentPeriodMonths" class="text-danger"></span>
