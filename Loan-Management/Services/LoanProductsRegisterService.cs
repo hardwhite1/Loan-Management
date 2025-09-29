@@ -28,8 +28,7 @@ namespace Loan_Management.Services
 
             loanProductsRegister.Id = Guid.NewGuid();
             loanProductsRegister.UserId = user.Id;
-            loanProductsRegister.CreatedDate = DateTime.UtcNow;
-            loanProductsRegister.LastUpdated = DateTime.UtcNow;
+            if (loanProductsRegister.PrincipalAmountMax <= loanProductsRegister.PrincipalAmountMin) return false;
             _context.LoanProducts.Add(loanProductsRegister);
             var created = await _context.SaveChangesAsync();
             return created > 0;
