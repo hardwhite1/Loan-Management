@@ -105,6 +105,7 @@ namespace Loan_Management.Controllers
                 LoanProduct = product,
                 RequiresCollateral = product.RequiresCollateral,
                 ApplicationDate = DateTimeOffset.Now,
+                MaturityDate = DateTimeOffset.Now.AddMonths(1),
                 ProcessedBy = "System" //Remember to remove hardcoded value
             };
 

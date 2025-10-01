@@ -21,6 +21,8 @@ namespace Loan_Management.Models
         public decimal PrincipalAmountMax { get; set; }
         [Required]
         public double InterestRate { get; set; }
+         [Required]
+        public decimal LatePaymentPenalty { get; set; }
         [Required]
         public string? InterestRateType { get; set; } //Fixed, Variable
         //Repayment

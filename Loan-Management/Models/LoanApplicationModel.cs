@@ -18,9 +18,6 @@ namespace Loan_Management.Models
         public bool RequiresCollateral { get; set; }
          [Required]
         public decimal ProcessingFee { get; set; }
-
-         [Required]
-        public decimal LatePaymentPenalty { get; set; }
         public string? CollateralDetails { get; set; }
         
         [Required]
@@ -30,6 +27,7 @@ namespace Loan_Management.Models
         //Workflow tracking
         [Required]
         public string? Status { get; set; } //Could be Pending, Under Review, Approved, Rejected, Disbursed
+        public DateTimeOffset MaturityDate { get; set; } = DateTimeOffset.Now;
         public DateTimeOffset ApplicationDate { get; set; } = DateTimeOffset.Now;
         //Audit
         public string? ProcessedBy { get; set; }

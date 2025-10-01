@@ -13,13 +13,11 @@
 
         <div id="details-@loan.Id" class="loan-details collapse">
             <h4>@loan.Name (@loan.Code)</h4>
-            <p><strong>Processing Fee:</strong> Ksh @loan.ProcessingFee</p>
-            <p><strong>Late Payment Penalty:</strong> Ksh @loan.LatePaymentPenalty</p>
-            
             <h5>Repayment Terms</h5>
             <p><strong>Frequency:</strong> @loan.RepaymentFrequency</p>
             <p><strong>Grace Period:</strong> @loan.GracePeriodMonths months</p>
             <p><strong>Installment Type:</strong> @loan.InstallmentType</p>
+            <p><strong>Late Repayment Penalty:</strong> @loan.LatePaymentPenalty</p>
             
             <h5>Collateral & Eligibility</h5>
             <p><strong>Requires Collateral:</strong> @(loan.RequiresCollateral ? "Yes" : "No")</p>
@@ -34,12 +32,9 @@
             <p><strong>Prepayment Allowed:</strong> @(loan.PrepayMentAllowed ? "Yes" : "No")</p>
             @if (loan.PrepayMentPenalty.HasValue)
             {
-                <p><strong>Prepayment Penalty:</strong> Ksh @loan.PrepayMentPenalty</p>
+                <p><strong>Prepayment Fees:</strong> Ksh @loan.PrepayMentPenalty</p>
             }
             <p><strong>Currency:</strong> @loan.Currency</p>
-            @* <form asp-action="LoanApplicationForm" method="get">
-                <button class="btn-apply">Apply</button>
-            </form> *@
             <a class="btn-apply" href="@Url.Action("LoanApplicationForm", "Loans", new { id = loan.Id })"
             onclick="return confirm('Apply for this loan?');">Apply</a>
         </div>

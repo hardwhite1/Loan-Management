@@ -1,4 +1,5 @@
 @model LoanApplicationModel
+@using Humanizer
 
 @{
     ViewData["Title"] = "Loan Application Form";
@@ -23,16 +24,21 @@
                 <span asp-validation-for="ProcessingFee" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            @* <div class="mb-3">
                 <label asp-for="LatePaymentPenalty" class="form-label">Late Payment Penalty</label>
                 <input asp-for="LatePaymentPenalty" class="form-control" />
                 <span asp-validation-for="LatePaymentPenalty" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <div class="mb-3">
-                <label asp-for="RepaymentPeriodMonths" class="form-label">Repayment Period(Months)</label>
+                <label asp-for="RepaymentPeriodMonths" class="form-label">Repayment Period</label>
                 <input asp-for="RepaymentPeriodMonths" class="form-control" />
                 <span asp-validation-for="RepaymentPeriodMonths" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaturityDate" class="form-label">Due Date</label>
+                <input asp-for="MaturityDate" class="form-control" />
+                <span asp-validation-for="MaturityDate" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
