@@ -48,5 +48,35 @@ namespace Loan_Management.Services
                 .ToArrayAsync();
             return items;
         }
+
+        public async Task<bool> ApplyForLoanAsync(LoanApplicationModel loanApplicationModel, ApplicationUser user)
+        {
+            if (loanApplicationModel == null) return false;
+
+            // Validate the requested amount against the loan product's min and max
+            var product = await _context.LoanProducts
+                .FirstOrDefaultAsync(lp => lp.Id == loanApplicationModel.LoanProductId);
+            if (product == null) return false; // Loan product not found
+
+            if (loanApplicationModel.RequestedAmount < product.PrincipalAmountMin ||
+                loanApplicationModel.RequestedAmount > product.PrincipalAmountMax)
+            {
+                return false; // Requested amount is out of bounds
+            }
+
+            // Set additional properties
+            loanApplicationModel.Id = Guid.NewGuid();
+            loanApplicationModel.UserId = user.Id;
+            loanApplicationModel.LoanProduct = product;
+            loanApplicationModel.RequiresCollateral = product.RequiresCollateral;
+            loanApplicationModel.ApplicationDate = DateTimeOffset.Now;
+            loanApplicationModel.MaturityDate = DateTimeOffset.Now.AddMonths(loanApplicationModel.RepaymentPeriodMonths);
+            loanApplicationModel.ProcessedBy = "System"; // Remember to remove hardcoded value
+            loanApplicationModel.Status = "Pending"; // Initial status
+
+            _context.ApplicationModel.Add(loanApplicationModel);
+            var created = await _context.SaveChangesAsync();
+            return created > 0;
+        }
     }
 }
