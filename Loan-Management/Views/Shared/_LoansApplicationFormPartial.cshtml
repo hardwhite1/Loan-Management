@@ -37,10 +37,12 @@
             </div>
             <div class="mb-3">
                 <label asp-for="MaturityDate" class="form-label">Due Date</label>
-                <input asp-for="MaturityDate" class="form-control" />
+                <input asp-for="MaturityDate"
+                    class="form-control"
+                    value="@Model.MaturityDate.ToString("dd-MMM-yyyy")"
+                    readonly />
                 <span asp-validation-for="MaturityDate" class="text-danger"></span>
             </div>
-
             <div class="mb-3">
                 <label asp-for="Purpose" class="form-label"></label>
                 <textarea asp-for="Purpose" class="form-control" rows="2"></textarea>
