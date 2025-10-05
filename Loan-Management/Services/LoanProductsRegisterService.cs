@@ -34,17 +34,17 @@ namespace Loan_Management.Services
             return created > 0;
         }
 
-        public async Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsAsync(ApplicationUser user)
+        public async Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsAsync()
         {
             // return await _context.LoanProducts.Where(x => x.UserId == user.Id).ToArrayAsync();
-            var items = await _context.LoanProducts.Where(x => x.UserId == user.Id).ToArrayAsync();
+            var items = await _context.LoanProducts.ToArrayAsync();
             return items;
         }
 
-        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsByLoanIdAsync(ApplicationUser user, Guid loanId)
+        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsByLoanIdAsync( Guid loanId)
         {
             var items = _context.LoanProducts
-                .Where(x => x.UserId == user.Id && x.Id == loanId)
+                .Where(x =>  x.Id == loanId)
                 .ToArrayAsync();
             return items;
         }

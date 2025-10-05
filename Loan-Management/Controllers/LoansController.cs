@@ -7,7 +7,7 @@ using Loan_Management.Contracts;
 
 namespace Loan_Management.Controllers
 {
-    [Authorize(Roles = "Adminstrator")]
+    // [Authorize(Roles = "Adminstrator")]
     public class LoansController : Controller
     {
 
@@ -63,7 +63,7 @@ namespace Loan_Management.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Unauthorized();
-            var loanItems = await _loanRegister.GetAllRegisteredLoanProductsAsync(currentUser);
+            var loanItems = await _loanRegister.GetAllRegisteredLoanProductsAsync();
             var model = new LoanProductsViewModel
             {
                 loanProducts = loanItems //loanProducts is a property defined in LoanProductsViewModel which(the property) is an array of LoanProductsRegister and will be passed to the view
@@ -73,10 +73,10 @@ namespace Loan_Management.Controllers
         [HttpGet]
         public async Task<IActionResult> LoanDetails(Guid id)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Unauthorized();
+            // var currentUser = await _userManager.GetUserAsync(User);
+            // if (currentUser == null) return Unauthorized();
 
-            var loan = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(currentUser, id);
+            var loan = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(id);
             if (loan == null || !loan.Any()) return NotFound();
             var model = new LoanProductsViewModel
             {
@@ -93,7 +93,7 @@ namespace Loan_Management.Controllers
             if (currentUser == null) return Unauthorized();
 
             // Get the loan product
-            var loanProduct = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(currentUser, id);
+            var loanProduct = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync( id);
             if (loanProduct == null || !loanProduct.Any()) return NotFound();
 
             var product = loanProduct.First();
@@ -110,6 +110,31 @@ namespace Loan_Management.Controllers
             };
 
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> LoanApplicationFormRegister(LoanApplicationModel loanApplicationModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var key in ModelState.Keys)
+                {
+                    var state = ModelState[key];
+                    foreach (var error in state.Errors)
+                    {
+                        Console.WriteLine($"key: {key}, Error: {error.ErrorMessage}");
+                    }
+                }
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Unauthorized();
+            var successful = await _loanRegister.ApplyForLoanAsync(loanApplicationModel, currentUser);
+            if (!successful)
+            {
+                return BadRequest("Could not apply for loan product");
+            }
+            return RedirectToAction("Finances");
+
         }
         [HttpGet]
         public IActionResult Finances()

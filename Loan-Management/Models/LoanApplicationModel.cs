@@ -5,6 +5,16 @@ namespace Loan_Management.Models
     public class LoanApplicationModel
     {
         //personal details
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public DateTimeOffset DateOfBirth { get; set; }
+        public string? Occupation { get; set; }
+        public decimal NetIncome { get; set; }
+        public string? PhoneNumber{ get; set; }
+        public string? HomeTown { get; set; }
+       
+        //loan details
         public Guid Id { get; set; }
 
         public required LoanProductsRegister LoanProduct { get; set; }

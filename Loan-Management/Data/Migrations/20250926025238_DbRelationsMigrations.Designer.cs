@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loan_Management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250926025238_DbRelationsMigrations")]
+    partial class DbRelationsMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -89,19 +92,10 @@ namespace Loan_Management.Data.Migrations
                     b.Property<DateTimeOffset>("ApplicationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CollateralDetails")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("LoanProductId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("MaturityDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ProcessedBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ProcessingFee")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Purpose")
@@ -112,9 +106,6 @@ namespace Loan_Management.Data.Migrations
 
                     b.Property<decimal>("RequestedAmount")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("RequiresCollateral")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -196,6 +187,9 @@ namespace Loan_Management.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("PrincipalAmountMin")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ProcessingFee")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RepaymentFrequency")

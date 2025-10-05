@@ -6,9 +6,9 @@ namespace Loan_Management.Contracts
     {
         public Task<bool> CreateLoanProductsAsync(LoanProductsRegister loanProductsRegister, ApplicationUser user);
 
-        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsAsync(ApplicationUser user);
+        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsAsync();
 
-        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsByLoanIdAsync(ApplicationUser user, Guid loanId);
+        public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsByLoanIdAsync( Guid loanId);
 
         public Task<bool> ApplyForLoanAsync(LoanApplicationModel loanApplicationModel, ApplicationUser user);
     }

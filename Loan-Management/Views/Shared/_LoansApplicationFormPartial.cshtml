@@ -9,8 +9,56 @@
     <div class="card shadow-lg p-4 rounded">
         <h3 class="mb-4 text-primary text-center">Loan Application Form</h3>
 
-        <form asp-action="LoanApplicationForm" method="post">
+        <form asp-action="LoanApplicationFormRegister"post">
             <input type="hidden" asp-for="LoanProductId" />
+
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Occupation" class="form-label">Occupation</label>
+                <input asp-for="Occupation" class="form-control" />
+                <span asp-validation-for="Occupation" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NetIncome" class="form-label">Net Income</label>
+                <input asp-for="NetIncome" class="form-control" />
+                <span asp-validation-for="NetIncome" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PhoneNumber" class="form-label">Phone</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text=danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="HomeTown" class="form-label">Home Town</label>
+                <input asp-for="HomeTown" class="form-control" />
+                <span asp-validation-for="HomeTown" class="text=danger"></span>
+            </div>
 
             <div class="mb-3">
                 <label asp-for="RequestedAmount" class="form-label">Requested Amount</label>
@@ -58,11 +106,11 @@
                 </div>
             }
 
-            <div class="mb-3">
+            @* <div class="mb-3">
                 <label asp-for="Status" class="form-label"></label>
                 <input asp-for="Status" class="form-control" />
                 <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <div class="mb-3">
                 <label asp-for="ApplicationDate" class="form-label">Application Date</label>
