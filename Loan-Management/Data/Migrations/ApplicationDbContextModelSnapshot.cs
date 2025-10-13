@@ -14,7 +14,7 @@ namespace Loan_Management.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
 
             modelBuilder.Entity("Loan_Management.Models.ApplicationUser", b =>
                 {
@@ -92,10 +92,34 @@ namespace Loan_Management.Data.Migrations
                     b.Property<string>("CollateralDetails")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTimeOffset>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HomeTown")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid>("LoanProductId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("MaturityDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("NetIncome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Occupation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProcessedBy")

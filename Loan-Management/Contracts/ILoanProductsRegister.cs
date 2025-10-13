@@ -11,5 +11,8 @@ namespace Loan_Management.Contracts
         public Task<LoanProductsRegister[]> GetAllRegisteredLoanProductsByLoanIdAsync( Guid loanId);
 
         public Task<bool> ApplyForLoanAsync(LoanApplicationModel loanApplicationModel, ApplicationUser user);
+
+        public Task<LoanApplicationModel[]> GetAllAppliedLoansPendingApprovalAsync(); 
+
     }
 }

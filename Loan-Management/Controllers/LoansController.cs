@@ -137,9 +137,15 @@ namespace Loan_Management.Controllers
 
         }
         [HttpGet]
-        public IActionResult Finances()
+        public async Task<IActionResult> Finances()
         {
-            return View();
+            var appliedLoans = await _loanRegister.GetAllAppliedLoansPendingApprovalAsync();
+            var model = new LoanApplicationViewModel
+            {
+                loanApplicationModel = appliedLoans
+            };
+
+            return View(model);
         }
 
     }

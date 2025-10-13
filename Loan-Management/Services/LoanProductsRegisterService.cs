@@ -78,5 +78,10 @@ namespace Loan_Management.Services
             var created = await _context.SaveChangesAsync();
             return created > 0;
         }
+
+        public async Task<LoanApplicationModel[]> GetAllAppliedLoansPendingApprovalAsync() 
+        {
+            return await _context.ApplicationModel.ToArrayAsync();
+        }
     }
 }
