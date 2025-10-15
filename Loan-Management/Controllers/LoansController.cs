@@ -147,6 +147,33 @@ namespace Loan_Management.Controllers
 
             return View(model);
         }
+        // [HttpPost]
+        // public async Task<IActionResult> ApproveLoan(Guid id)
+        // {
+        //     var loan = await _context.LoanApplications.FindAsync(id);
+        //     if (loan == null) return NotFound();
+
+        //     loan.Status = "Approved";
+        //     loan.ProcessedBy = User.Identity?.Name;
+        //     await _context.SaveChangesAsync();
+
+        //     TempData["Success"] = $"Loan for {loan.FirstName} {loan.LastName} has been approved.";
+        //     return RedirectToAction(nameof(Finances));
+        // }
+
+        // [HttpPost]
+        // public async Task<IActionResult> RejectLoan(Guid id)
+        // {
+        //     var loan = await _context.LoanApplications.FindAsync(id);
+        //     if (loan == null) return NotFound();
+
+        //     loan.Status = "Rejected";
+        //     loan.ProcessedBy = User.Identity?.Name;
+        //     await _context.SaveChangesAsync();
+
+        //     TempData["Error"] = $"Loan for {loan.FirstName} {loan.LastName} has been rejected.";
+        //     return RedirectToAction(nameof(Finances));
+        // }
 
     }
 }

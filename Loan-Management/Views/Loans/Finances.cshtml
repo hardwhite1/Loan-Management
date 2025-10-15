@@ -1,8 +1,193 @@
 @model LoanApplicationViewModel
+@{
+    ViewData["Title"] = "Finance - Loan Approvals";
+}
 
-<h3>Loans awaiting approval</h3>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 
-@foreach(var loans in Model.loanApplicationModel)
-{
-    @* <li>@loans.</li> *@
+<div class="container mt-4">
+    <h2 class="mb-4 text-center fw-bold">Loans Awaiting Approval</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    @if (Model.loanApplicationModel != null && Model.loanApplicationModel.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-striped align-middle shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Email</th>
+                        <th>Loan Product</th>
+                        <th>Requested Amount</th>
+                        <th>Net Income</th>
+                        <th>Application Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var loan in Model.loanApplicationModel)
+                {
+                    <tr>
+                        <td>@loan.FirstName @loan.LastName</td>
+                        <td>@loan.Email</td>
+                        @* <td>@loan.LoanProduct?.ProductName</td> *@
+                        <td>@loan.RequestedAmount.ToString("C")</td>
+                        <td>@loan.NetIncome.ToString("C")</td>
+                        <td>@loan.ApplicationDate.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            @if (loan.Status == "Pending")
+                            {
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            }
+                            else if (loan.Status == "Approved")
+                            {
+                                <span class="badge bg-success">Approved</span>
+                            }
+                            else if (loan.Status == "Rejected")
+                            {
+                                <span class="badge bg-danger">Rejected</span>
+                            }
+                        </td>
+                        <td>
+                            @if (loan.Status == "Pending")
+                            {
+                                <button class="btn btn-primary btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reviewModal"
+                                        data-loanid="@loan.Id"
+                                        data-name="@loan.FirstName @loan.LastName"
+                                        data-email="@loan.Email"
+                                        data-amount="@loan.RequestedAmount"
+                                        data-netincome="@loan.NetIncome"
+                                        @* data-product="@loan.LoanProduct?.ProductName" *@
+                                        data-purpose="@loan.Purpose"
+                                        data-collateral="@loan.CollateralDetails"
+                                        data-period="@loan.RepaymentPeriodMonths"
+                                        data-date="@loan.ApplicationDate.ToString("dd-MMM-yyyy")">
+                                    <i class="bi bi-eye"></i> Review
+                                </button>
+                            }
+                            else
+                            {
+                                <em>N/A</em>
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center shadow-sm">
+            No loans currently awaiting approval.
+        </div>
+    }
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title" id="reviewModalLabel">Loan Application Review</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <dl class="row">
+          <dt class="col-sm-4">Applicant Name:</dt>
+          <dd class="col-sm-8" id="applicantName"></dd>
+
+          <dt class="col-sm-4">Email:</dt>
+          <dd class="col-sm-8" id="applicantEmail"></dd>
+
+          <dt class="col-sm-4">Loan Product:</dt>
+          <dd class="col-sm-8" id="loanProduct"></dd>
+
+          <dt class="col-sm-4">Requested Amount:</dt>
+          <dd class="col-sm-8" id="requestedAmount"></dd>
+
+          <dt class="col-sm-4">Net Income:</dt>
+          <dd class="col-sm-8" id="netIncome"></dd>
+
+          <dt class="col-sm-4">Repayment Period (Months):</dt>
+          <dd class="col-sm-8" id="repaymentPeriod"></dd>
+
+          <dt class="col-sm-4">Collateral Details:</dt>
+          <dd class="col-sm-8" id="collateral"></dd>
+
+          <dt class="col-sm-4">Purpose:</dt>
+          <dd class="col-sm-8" id="purpose"></dd>
+
+          <dt class="col-sm-4">Application Date:</dt>
+          <dd class="col-sm-8" id="applicationDate"></dd>
+        </dl>
+      </div>
+
+      <div class="modal-footer">
+        <form id="approveForm" asp-action="ApproveLoan" method="post">
+            <input type="hidden" name="id" id="approveLoanId" />
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle"></i> Approve
+            </button>
+        </form>
+
+        <form id="rejectForm" asp-action="RejectLoan" method="post">
+            <input type="hidden" name="id" id="rejectLoanId" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-x-circle"></i> Reject
+            </button>
+        </form>
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+    <script>
+        const reviewModal = document.getElementById('reviewModal')
+        reviewModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget
+
+            // Extract loan data from button attributes
+            const loanId = button.getAttribute('data-loanid')
+            const name = button.getAttribute('data-name')
+            const email = button.getAttribute('data-email')
+            const amount = button.getAttribute('data-amount')
+            const netincome = button.getAttribute('data-netincome')
+            const product = button.getAttribute('data-product')
+            const purpose = button.getAttribute('data-purpose')
+            const collateral = button.getAttribute('data-collateral')
+            const period = button.getAttribute('data-period')
+            const date = button.getAttribute('data-date')
+
+            // Populate modal fields
+            document.getElementById('applicantName').innerText = name
+            document.getElementById('applicantEmail').innerText = email
+            document.getElementById('loanProduct').innerText = product
+            document.getElementById('requestedAmount').innerText = amount
+            document.getElementById('netIncome').innerText = netincome
+            document.getElementById('repaymentPeriod').innerText = period
+            document.getElementById('collateral').innerText = collateral || "None"
+            document.getElementById('purpose').innerText = purpose || "Not specified"
+            document.getElementById('applicationDate').innerText = date
+
+            // Assign hidden input values for approve/reject
+            document.getElementById('approveLoanId').value = loanId
+            document.getElementById('rejectLoanId').value = loanId
+        })
+    </script>
 }
