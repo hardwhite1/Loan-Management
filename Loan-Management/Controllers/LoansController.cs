@@ -7,7 +7,7 @@ using Loan_Management.Contracts;
 
 namespace Loan_Management.Controllers
 {
-    // [Authorize(Roles = "Adminstrator")]
+    [Authorize]
     public class LoansController : Controller
     {
 
