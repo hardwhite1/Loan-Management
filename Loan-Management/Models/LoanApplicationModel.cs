@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Loan_Management.Models
 {
-    public class LoanApplicationModel
+    public class    LoanApplicationModel
     {
         //personal details
         public string? FirstName { get; set; }

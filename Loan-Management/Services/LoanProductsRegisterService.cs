@@ -81,7 +81,9 @@ namespace Loan_Management.Services
 
         public async Task<LoanApplicationModel[]> GetAllAppliedLoansPendingApprovalAsync() 
         {
-            return await _context.ApplicationModel.ToArrayAsync();
+            return await _context.ApplicationModel
+            .Include(a => a.LoanProduct)
+            .ToArrayAsync();
         }
     }
 }

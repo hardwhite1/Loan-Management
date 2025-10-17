@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Loan_Management.Models;
 using Loan_Management.Contracts;
+using System.Linq;
 
 namespace Loan_Management.Controllers
 {
@@ -93,7 +94,7 @@ namespace Loan_Management.Controllers
             if (currentUser == null) return Unauthorized();
 
             // Get the loan product
-            var loanProduct = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync( id);
+            var loanProduct = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(id);
             if (loanProduct == null || !loanProduct.Any()) return NotFound();
 
             var product = loanProduct.First();
@@ -101,11 +102,12 @@ namespace Loan_Management.Controllers
             // Build the application model
             var model = new LoanApplicationModel
             {
-                LoanProductId = product.Id, 
+                LoanProductId = product.Id,
                 LoanProduct = product,
                 RequiresCollateral = product.RequiresCollateral,
                 ApplicationDate = DateTimeOffset.Now,
                 MaturityDate = DateTimeOffset.Now.AddMonths(1),
+                ProcessingFee = 0.02m * product.PrincipalAmountMin,
                 ProcessedBy = "System" //Remember to remove hardcoded value
             };
 
@@ -116,13 +118,12 @@ namespace Loan_Management.Controllers
         {
             if (!ModelState.IsValid)
             {
-                foreach (var key in ModelState.Keys)
+                foreach (var (key, error) in from key in ModelState.Keys
+                                             let state = ModelState[key]
+                                             from error in state.Errors
+                                             select (key, error))
                 {
-                    var state = ModelState[key];
-                    foreach (var error in state.Errors)
-                    {
-                        Console.WriteLine($"key: {key}, Error: {error.ErrorMessage}");
-                    }
+                    Console.WriteLine($"key: {key}, Error: {error.ErrorMessage}");
                 }
             }
 
@@ -143,6 +144,8 @@ namespace Loan_Management.Controllers
             var model = new LoanApplicationViewModel
             {
                 loanApplicationModel = appliedLoans
+                
+                
             };
 
             return View(model);
