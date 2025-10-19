@@ -90,8 +90,8 @@ namespace Loan_Management.Controllers
         [HttpGet]
         public async Task<IActionResult> LoanApplicationForm(Guid id) // loan product id
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null) return Unauthorized();
+            // var currentUser = await _userManager.GetUserAsync(User);
+            // if (currentUser == null) return Unauthorized();
 
             // Get the loan product
             var loanProduct = await _loanRegister.GetAllRegisteredLoanProductsByLoanIdAsync(id);
@@ -103,7 +103,7 @@ namespace Loan_Management.Controllers
             var model = new LoanApplicationModel
             {
                 LoanProductId = product.Id,
-                LoanProduct = product,
+                //LoanProduct = product,
                 RequiresCollateral = product.RequiresCollateral,
                 ApplicationDate = DateTimeOffset.Now,
                 MaturityDate = DateTimeOffset.Now.AddMonths(1),
@@ -143,9 +143,7 @@ namespace Loan_Management.Controllers
             var appliedLoans = await _loanRegister.GetAllAppliedLoansPendingApprovalAsync();
             var model = new LoanApplicationViewModel
             {
-                loanApplicationModel = appliedLoans
-                
-                
+                loanApplicationModel = appliedLoans      
             };
 
             return View(model);

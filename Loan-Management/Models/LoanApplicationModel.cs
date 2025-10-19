@@ -17,7 +17,7 @@ namespace Loan_Management.Models
         //loan details
         public Guid Id { get; set; }
 
-        public required LoanProductsRegister LoanProduct { get; set; }
+        public  LoanProductsRegister? LoanProduct { get; set; }
         [Required]
         public string? UserId { get; set; }
         [Required]
