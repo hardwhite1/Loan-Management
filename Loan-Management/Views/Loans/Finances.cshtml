@@ -39,7 +39,7 @@
                     <tr>
                         <td>@loan.FirstName @loan.LastName</td>
                         <td>@loan.Email</td>
-                        <td>@loan.LoanProduct?.Name</td>
+                        <td>@ViewBag.LoanProductName</td>
                         <td>@loan.RequestedAmount.ToString("C")</td>
                         <td>@loan.NetIncome.ToString("C")</td>
                         <td>@loan.ApplicationDate.ToString("dd-MMM-yyyy")</td>
@@ -68,7 +68,7 @@
                                         data-email="@loan.Email"
                                         data-amount="@loan.RequestedAmount"
                                         data-netincome="@loan.NetIncome"
-                                        data-product="@loan.LoanProduct?.Name"
+                                        data-product="@ViewBag.LoanProductName"
                                         data-purpose="@loan.Purpose"
                                         data-collateral="@loan.CollateralDetails"
                                         data-period="@loan.RepaymentPeriodMonths"

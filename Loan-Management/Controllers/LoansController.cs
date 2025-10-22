@@ -144,6 +144,11 @@ namespace Loan_Management.Controllers
         public async Task<IActionResult> Finances()
         {
             var appliedLoans = await _loanRegister.GetAllAppliedLoansPendingApprovalAsync();
+
+            //set ViewBag properties if needed
+           // ViewBag.TotalAppliedLoans = appliedLoans.Length;
+            ViewBag.LoanProductName = appliedLoans.FirstOrDefault()?.LoanProduct?.Name ?? "N/A";
+
             var model = new LoanApplicationViewModel
             {
                 loanApplicationModel = appliedLoans      
