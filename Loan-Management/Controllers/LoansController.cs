@@ -101,12 +101,12 @@ namespace Loan_Management.Controllers
 
             // Set ViewBag property
             ViewBag.LoanProductName = product.Name;
+            ViewBag.LoanProductInterestRate = product.InterestRate;
 
             // Build the application model
             var model = new LoanApplicationModel
             {
                 LoanProductId = product.Id,
-                //LoanProduct = product,
                 RequiresCollateral = product.RequiresCollateral,
                 ApplicationDate = DateTimeOffset.Now,
                 MaturityDate = DateTimeOffset.Now.AddMonths(1),

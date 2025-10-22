@@ -70,6 +70,11 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Interest Rate (%)</label>
+                <input class="form-control" value="@ViewBag.LoanProductInterestRate" readonly />
+            </div>
+
+            <div class="mb-3">
                 <label asp-for="ProcessingFee" class="form-label">Processing Fee</label>
                 <input asp-for="ProcessingFee" class="form-control" readonly />
                 <span asp-validation-for="ProcessingFee" class="text-danger"></span>
