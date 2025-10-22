@@ -99,6 +99,9 @@ namespace Loan_Management.Controllers
 
             var product = loanProduct.First();
 
+            // Set ViewBag property
+            ViewBag.LoanProductName = product.Name;
+
             // Build the application model
             var model = new LoanApplicationModel
             {

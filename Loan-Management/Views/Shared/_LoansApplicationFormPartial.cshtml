@@ -11,9 +11,8 @@
         <form asp-action="LoanApplicationFormRegister"post">
             <input type="hidden" asp-for="LoanProductId" />
             <div class="mb-3">
-                <label asp-for="LoanProduct.Name" class="form-label">Loan Product</label>
-                <input asp-for="LoanProduct.Name" class="form-control" readonly />
-                <span asp-validation-for="LoanProduct.Name" class="text-danger"></span>
+                <label class="form-label">Loan Product</label>
+                <input class="form-control" value="@ViewBag.LoanProductName" readonly />
             </div>
             <div class="mb-3">
                 <label asp-for="FirstName" class="form-label">First Name</label>
