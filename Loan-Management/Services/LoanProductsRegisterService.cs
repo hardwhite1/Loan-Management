@@ -85,5 +85,18 @@ namespace Loan_Management.Services
             .Include(a => a.LoanProduct)
             .ToArrayAsync();
         }
+
+        public async Task<bool> ApproveAppliedLoans(Guid loanId)
+        {
+        //    var loanApplication = await _context.ApplicationModel
+        //         .FirstOrDefaultAsync(la => la.Id == loanId);
+            var loanApplication = await _context.ApplicationModel.FindAsync(loanId);
+            if (loanApplication == null) return false;
+
+            loanApplication.Status = "Approved";
+            _context.ApplicationModel.Update(loanApplication);
+            var updated = await _context.SaveChangesAsync();
+            return updated > 0;
+        }
     }
 }

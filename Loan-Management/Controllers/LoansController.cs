@@ -156,19 +156,18 @@ namespace Loan_Management.Controllers
 
             return View(model);
         }
-        // [HttpPost]
-        // public async Task<IActionResult> ApproveLoan(Guid id)
-        // {
-        //     var loan = await _context.LoanApplications.FindAsync(id);
-        //     if (loan == null) return NotFound();
+        [HttpPost]
+        public async Task<IActionResult> ApproveLoan(Guid loanId)
+        {
+            var successful = await _loanRegister.ApproveAppliedLoans(loanId);
+            if (!successful)
+            {
+                return BadRequest("Could not approve loan");
+            }
 
-        //     loan.Status = "Approved";
-        //     loan.ProcessedBy = User.Identity?.Name;
-        //     await _context.SaveChangesAsync();
-
-        //     TempData["Success"] = $"Loan for {loan.FirstName} {loan.LastName} has been approved.";
-        //     return RedirectToAction(nameof(Finances));
-        // }
+            // TempData["Success"] = $"Loan for {loan.FirstName} {loan.LastName} has been approved.";
+            return RedirectToAction(nameof(Loans));
+        }
 
         // [HttpPost]
         // public async Task<IActionResult> RejectLoan(Guid id)
