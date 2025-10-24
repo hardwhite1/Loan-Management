@@ -168,19 +168,16 @@ namespace Loan_Management.Controllers
             return RedirectToAction(nameof(Loans));
         }
 
-        // [HttpPost]
-        // public async Task<IActionResult> RejectLoan(Guid id)
-        // {
-        //     var loan = await _context.LoanApplications.FindAsync(id);
-        //     if (loan == null) return NotFound();
-
-        //     loan.Status = "Rejected";
-        //     loan.ProcessedBy = User.Identity?.Name;
-        //     await _context.SaveChangesAsync();
-
-        //     TempData["Error"] = $"Loan for {loan.FirstName} {loan.LastName} has been rejected.";
-        //     return RedirectToAction(nameof(Finances));
-        // }
+        [HttpPost]
+        public async Task<IActionResult> RejectLoan(Guid loanId)
+        {
+            var successful = await _loanRegister.RejectAppliedLoansAsync(loanId);
+            if (!successful)
+            {
+                return BadRequest("Could not reject loan");
+            }
+            return RedirectToAction(nameof(Finances));
+        }
 
     }
 }
