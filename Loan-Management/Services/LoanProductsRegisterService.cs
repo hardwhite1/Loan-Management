@@ -1,11 +1,13 @@
 using Loan_Management.Contracts;
 using Loan_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Loan_Management.Services
 {
+    [Authorize(Roles = "Adminstrator, Finance")]
     public class LoanProductsRegisterService : ILoanProductsRegister
     {
 

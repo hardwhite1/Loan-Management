@@ -22,6 +22,7 @@ namespace Loan_Management.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -34,6 +35,7 @@ namespace Loan_Management.Controllers
         }
         //Create an action method that processes loan registration
         [HttpPost]
+        [Authorize(Roles = "Adminstrator")]
         public async Task<IActionResult> LoanProductsRegister(LoanProductsRegister loanProductsRegister)
         {
             //Model validation check
@@ -141,6 +143,7 @@ namespace Loan_Management.Controllers
 
         }
         [HttpGet]
+        [Authorize(Roles = "Adminstrator, Finance")]
         public async Task<IActionResult> Finances()
         {
             var appliedLoans = await _loanRegister.GetAllAppliedLoansPendingApprovalAsync();
@@ -156,6 +159,7 @@ namespace Loan_Management.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Adminstrator, Finance")]
         public async Task<IActionResult> ApproveLoan(Guid loanId)
         {
             var successful = await _loanRegister.ApproveAppliedLoansAsync(loanId);
@@ -169,6 +173,7 @@ namespace Loan_Management.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Adminstrator, Finance")]
         public async Task<IActionResult> RejectLoan(Guid loanId)
         {
             var successful = await _loanRegister.RejectAppliedLoansAsync(loanId);
@@ -176,7 +181,7 @@ namespace Loan_Management.Controllers
             {
                 return BadRequest("Could not reject loan");
             }
-            return RedirectToAction(nameof(Finances));
+            return RedirectToAction(nameof(Loans));
         }
 
     }
