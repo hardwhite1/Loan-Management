@@ -158,7 +158,7 @@ namespace Loan_Management.Controllers
         [HttpPost]
         public async Task<IActionResult> ApproveLoan(Guid loanId)
         {
-            var successful = await _loanRegister.ApproveAppliedLoans(loanId);
+            var successful = await _loanRegister.ApproveAppliedLoansAsync(loanId);
             if (!successful)
             {
                 return BadRequest("Could not approve loan");

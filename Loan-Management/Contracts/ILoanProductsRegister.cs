@@ -14,7 +14,9 @@ namespace Loan_Management.Contracts
 
         public Task<LoanApplicationModel[]> GetAllAppliedLoansPendingApprovalAsync();
 
-        public Task<bool> ApproveAppliedLoans(Guid loanId);
+        public Task<bool> ApproveAppliedLoansAsync(Guid loanId);
+
+        public Task<bool> RejectAppliedLoansAsync(Guid loanId);
 
     }
 }

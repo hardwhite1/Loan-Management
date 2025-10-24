@@ -86,15 +86,24 @@ namespace Loan_Management.Services
             .ToArrayAsync();
         }
 
-        public async Task<bool> ApproveAppliedLoans(Guid loanId)
+        public async Task<bool> ApproveAppliedLoansAsync(Guid loanId)
         {
-        //    var loanApplication = await _context.ApplicationModel
-        //         .FirstOrDefaultAsync(la => la.Id == loanId);
             var loanApplication = await _context.ApplicationModel.FindAsync(loanId);
             if (loanApplication == null) return false;
 
             loanApplication.Status = "Approved";
             _context.ApplicationModel.Update(loanApplication);
+            var updated = await _context.SaveChangesAsync();
+            return updated > 0;
+        }
+        
+        public async Task<bool> RejectAppliedLoansAsync(Guid loanId)
+        {
+            var appliedLoanProduct = await _context.ApplicationModel.FindAsync(loanId);
+            if (appliedLoanProduct == null) return false;
+            //set status to rejected
+            appliedLoanProduct.Status = "Rejected";
+            _context.ApplicationModel.Update(appliedLoanProduct);
             var updated = await _context.SaveChangesAsync();
             return updated > 0;
         }
