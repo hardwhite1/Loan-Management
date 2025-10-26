@@ -27,8 +27,9 @@ namespace Loan_Management.Controllers
         {
             return View();
         }
-        
+
         [HttpGet]
+        [Authorize(Roles = "Adminstrator")]
         public IActionResult LoanProductsRegisterForm()
         {
             return View();
