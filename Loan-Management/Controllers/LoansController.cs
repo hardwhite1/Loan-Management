@@ -140,7 +140,7 @@ namespace Loan_Management.Controllers
             {
                 return BadRequest("Could not apply for loan product");
             }
-            return RedirectToAction("Finances");
+            return RedirectToAction("/Home/Index");
 
         }
         [HttpGet]
@@ -183,6 +183,22 @@ namespace Loan_Management.Controllers
                 return BadRequest("Could not reject loan");
             }
             return RedirectToAction(nameof(Loans));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ApprovedLoans()      
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Unauthorized();
+
+            var approvedLoans = await _loanRegister.GetAllApprovedLoansAsync(currentUser);
+
+            var model = new LoanApplicationViewModel
+            {
+                loanApplicationModel = approvedLoans
+            };
+
+            return View(model);
         }
 
     }

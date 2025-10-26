@@ -98,7 +98,7 @@ namespace Loan_Management.Services
             var updated = await _context.SaveChangesAsync();
             return updated > 0;
         }
-        
+
         public async Task<bool> RejectAppliedLoansAsync(Guid loanId)
         {
             var appliedLoanProduct = await _context.ApplicationModel.FindAsync(loanId);
@@ -108,6 +108,14 @@ namespace Loan_Management.Services
             _context.ApplicationModel.Update(appliedLoanProduct);
             var updated = await _context.SaveChangesAsync();
             return updated > 0;
+        }
+
+        public async Task<LoanApplicationModel[]> GetAllApprovedLoansAsync(ApplicationUser user)
+        {
+            return await _context.ApplicationModel
+            .Include(a => a.LoanProduct)
+            .Where(a => a.Status == "Approved" && a.UserId == user.Id)
+            .ToArrayAsync();
         }
     }
 }
