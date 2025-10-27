@@ -1,0 +1,42 @@
+@model LoanApplicationViewModel
+
+@{
+    ViewData["Title"] = "My Approved Loans";
+}
+
+<h2 class="mb-4">My Approved Loans</h2>
+
+@if (Model.loanApplicationModel != null && Model.loanApplicationModel.Length > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Loan ID</th>
+                <th>Product Name</th>
+                <th>Amount</th>
+                <th>Term (Months)</th>
+                <th>Status</th>
+                <th>Approved Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model.loanApplicationModel)
+            {
+                <tr>
+                    <td>@loan.Id</td>
+                    <td>@ViewBag.LoanProductName</td>
+                    <td>@loan.RequestedAmount.ToString("C")</td>
+                    <td>@loan.RepaymentPeriodMonths</td>
+                    <td>@loan.Status</td>
+                    <td>@loan.ApplicationDate.ToString("MM/dd/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        You have no approved loans at this time.
+    </div>
+}

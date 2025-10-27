@@ -193,6 +193,9 @@ namespace Loan_Management.Controllers
 
             var approvedLoans = await _loanRegister.GetAllApprovedLoansAsync(currentUser);
 
+            //Set the respective ViewBags
+            ViewBag.LoanProductName = approvedLoans.FirstOrDefault()?.LoanProduct?.Name ?? "NA";
+
             var model = new LoanApplicationViewModel
             {
                 loanApplicationModel = approvedLoans
