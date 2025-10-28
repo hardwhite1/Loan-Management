@@ -113,9 +113,9 @@ namespace Loan_Management.Services
         public async Task<LoanApplicationModel[]> GetAllApprovedLoansAsync(ApplicationUser user)
         {
             return await _context.ApplicationModel
-            .Include(a => a.LoanProduct)
-            .Where(a => a.Status == "Approved" && a.UserId == user.Id)
-            .ToArrayAsync();
+                .Include(a => a.LoanProduct)
+                .Where(a => (a.Status == "Approved" || a.Status == "Rejected") && a.UserId == user.Id)
+                .ToArrayAsync();
         }
     }
 }
